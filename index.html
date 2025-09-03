@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- This meta tag is crucial for responsiveness -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIH 2025 Hackathon Teammate Search</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -46,10 +47,10 @@
             box-shadow: 0 0 8px rgba(56, 189, 248, 0.15);
             color: #f9fafb;
             transition: all 0.3s ease;
-            border-radius: 9999px;
+            border-radius: 9999px; /* Default to pill shape */
         }
         .form-textarea {
-            border-radius: 1.5rem;
+            border-radius: 1.5rem; /* Textareas are more rectangular */
         }
         .form-input::placeholder, .form-textarea::placeholder {
             color: #64748b;
@@ -62,11 +63,12 @@
         }
         .form-label { color: #94a3b8; }
         .form-checkbox-label, .form-radio-label { color: #d1d5db; }
-        input[type="checkbox"] {
+        input[type="checkbox"], input[type="radio"] {
             appearance: none;
             -webkit-appearance: none;
             height: 1.25rem;
             width: 1.25rem;
+            min-width: 1.25rem; /* Prevent shrinking in flex layouts */
             background-color: rgba(30, 41, 59, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 9999px;
@@ -76,7 +78,7 @@
             -webkit-backdrop-filter: blur(12px);
             transition: background-color 0.2s ease, border-color 0.2s ease;
         }
-        input[type="checkbox"]:checked {
+        input[type="checkbox"]:checked, input[type="radio"]:checked {
             background-color: #38bdf8;
             border-color: #38bdf8;
         }
@@ -84,6 +86,19 @@
             content: '✓';
             font-size: 1rem;
             color: #000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        /* Style for checked radio button */
+        input[type="radio"]:checked::after {
+            content: '';
+            display: block;
+            width: 0.625rem;
+            height: 0.625rem;
+            border-radius: 50%;
+            background-color: #000;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -124,9 +139,10 @@
 <body class="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8">
     <div class="w-full max-w-4xl mx-auto">
         <div class="glass-container p-6 sm:p-8 md:p-12">
-            <div class="text-center mb-10">
-                <h1 class="text-3xl sm:text-5xl font-bold text-white tracking-tight">SIH 2025 Hackathon Teammate Search</h1>
-                <p class="mt-4 text-lg text-gray-400">Looking for dedicated and passionate individuals to form a winning team.</p>
+            <div class="text-center mb-8 sm:mb-10">
+                <!-- RESPONSIVE CHANGE: Adjusted text sizes for better scaling on mobile -->
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">SIH 2025 Hackathon Teammate Search</h1>
+                <p class="mt-4 text-base sm:text-lg text-gray-400">Looking for dedicated and passionate individuals to form a winning team.</p>
                 <p class="mt-2 text-sm text-gray-500">Contact: <a href="mailto:astrodingra@gmail.com" class="hover:underline text-blue-400">astrodingra@gmail.com</a></p>
                 <div class="mt-4">
                     <p class="text-sm font-semibold text-gray-400 mb-2">Current Team Members:</p>
@@ -140,72 +156,75 @@
 
             <!-- Countdown Timer -->
             <div id="countdown-timer-container" class="text-center mb-8 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
-                <h3 class="text-lg font-semibold text-sky-300 tracking-wider mb-2 uppercase">Proposal Submission Deadline</h3>
-                <div id="timer" class="flex justify-center items-center space-x-2 sm:space-x-4 text-white">
-                    <div class="text-center p-2 rounded-lg bg-black/20 w-20 sm:w-24">
+                <h3 class="text-base sm:text-lg font-semibold text-sky-300 tracking-wider mb-3 uppercase">Proposal Submission Deadline</h3>
+                <!-- RESPONSIVE CHANGE: Finetuned spacing, widths, and alignment for better mobile view -->
+                <div id="timer" class="flex justify-center items-center space-x-1 sm:space-x-4 text-white">
+                    <div class="text-center p-2 rounded-lg bg-black/20 w-16 sm:w-24">
                         <div id="days" class="text-3xl sm:text-4xl font-bold">00</div>
-                        <div class="text-xs sm:text-sm text-gray-400">Days</div>
+                        <div class="text-xs text-gray-400">Days</div>
                     </div>
-                    <div class="text-3xl font-light text-gray-500 pb-5">:</div>
-                    <div class="text-center p-2 rounded-lg bg-black/20 w-20 sm:w-24">
+                    <div class="text-3xl font-light text-gray-500">:</div>
+                    <div class="text-center p-2 rounded-lg bg-black/20 w-16 sm:w-24">
                         <div id="hours" class="text-3xl sm:text-4xl font-bold">00</div>
-                        <div class="text-xs sm:text-sm text-gray-400">Hours</div>
+                        <div class="text-xs text-gray-400">Hours</div>
                     </div>
-                    <div class="text-3xl font-light text-gray-500 pb-5">:</div>
-                    <div class="text-center p-2 rounded-lg bg-black/20 w-20 sm:w-24">
+                    <div class="text-3xl font-light text-gray-500">:</div>
+                    <div class="text-center p-2 rounded-lg bg-black/20 w-16 sm:w-24">
                         <div id="minutes" class="text-3xl sm:text-4xl font-bold">00</div>
-                        <div class="text-xs sm:text-sm text-gray-400">Minutes</div>
+                        <div class="text-xs text-gray-400">Minutes</div>
                     </div>
-                    <div class="text-3xl font-light text-gray-500 pb-5">:</div>
-                    <div class="text-center p-2 rounded-lg bg-black/20 w-20 sm:w-24">
+                    <div class="text-3xl font-light text-gray-500">:</div>
+                    <div class="text-center p-2 rounded-lg bg-black/20 w-16 sm:w-24">
                         <div id="seconds" class="text-3xl sm:text-4xl font-bold">00</div>
-                        <div class="text-xs sm:text-sm text-gray-400">Seconds</div>
+                        <div class="text-xs text-gray-400">Seconds</div>
                     </div>
                 </div>
             </div>
 
             <form id="sih-form" class="space-y-8">
-                <!-- Form fields remain the same -->
+                <!-- Personal Info Section -->
                  <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                    <div>
-                        <label for="name" class="block text-sm font-medium form-label">Your Name <span class="text-red-400">*</span></label>
-                        <input type="text" id="name" name="name" required class="mt-1 block w-full form-input shadow-sm p-3">
-                    </div>
-                    <div>
-                        <label for="email" class="block text-sm font-medium form-label">Email Address <span class="text-red-400">*</span></label>
-                        <input type="email" id="email" name="email" required class="mt-1 block w-full form-input shadow-sm p-3">
-                    </div>
-                    <div>
-                        <label for="phone" class="block text-sm font-medium form-label">Phone Number <span class="text-red-400">*</span></label>
-                        <input type="tel" id="phone" name="phone" required class="mt-1 block w-full form-input shadow-sm p-3">
-                    </div>
-                    <div>
-                        <label for="github" class="block text-sm font-medium form-label">GitHub Profile or Portfolio <span class="text-red-400">*</span></label>
-                        <input type="url" id="github" name="github" required class="mt-1 block w-full form-input shadow-sm p-3">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium form-label">Gender <span class="text-red-400">*</span></label>
-                        <div class="mt-2 flex flex-wrap gap-x-4 gap-y-2">
-                            <div class="flex items-center">
-                                <input type="radio" id="gender_male" name="gender" value="Male" required class="text-blue-600 focus:ring-blue-500">
-                                <label for="gender_male" class="ml-2 form-radio-label">Male</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" id="gender_female" name="gender" value="Female" required class="text-blue-600 focus:ring-blue-500">
-                                <label for="gender_female" class="ml-2 form-radio-label">Female</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" id="gender_other" name="gender" value="Other" required class="text-blue-600 focus:ring-blue-500">
-                                <label for="gender_other" class="ml-2 form-radio-label">Other</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="radio" id="gender_prefer_not_to_say" name="gender" value="Prefer not to say" required class="text-blue-600 focus:ring-blue-500">
-                                <label for="gender_prefer_not_to_say" class="ml-2 form-radio-label">Prefer not to say</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                     <div>
+                         <label for="name" class="block text-sm font-medium form-label">Your Name <span class="text-red-400">*</span></label>
+                         <input type="text" id="name" name="name" required class="mt-1 block w-full form-input shadow-sm p-3">
+                     </div>
+                     <div>
+                         <label for="email" class="block text-sm font-medium form-label">Email Address <span class="text-red-400">*</span></label>
+                         <input type="email" id="email" name="email" required class="mt-1 block w-full form-input shadow-sm p-3">
+                     </div>
+                     <div>
+                         <label for="phone" class="block text-sm font-medium form-label">Phone Number <span class="text-red-400">*</span></label>
+                         <input type="tel" id="phone" name="phone" required class="mt-1 block w-full form-input shadow-sm p-3">
+                     </div>
+                     <div>
+                         <label for="github" class="block text-sm font-medium form-label">GitHub Profile or Portfolio <span class="text-red-400">*</span></label>
+                         <input type="url" id="github" name="github" required class="mt-1 block w-full form-input shadow-sm p-3">
+                     </div>
+                     <!-- RESPONSIVE CHANGE: Gender options now wrap more gracefully -->
+                     <div class="md:col-span-2">
+                         <label class="block text-sm font-medium form-label">Gender <span class="text-red-400">*</span></label>
+                         <div class="mt-2 flex flex-wrap gap-x-6 gap-y-3">
+                             <div class="flex items-center">
+                                 <input type="radio" id="gender_male" name="gender" value="Male" required>
+                                 <label for="gender_male" class="ml-2 form-radio-label">Male</label>
+                             </div>
+                             <div class="flex items-center">
+                                 <input type="radio" id="gender_female" name="gender" value="Female" required>
+                                 <label for="gender_female" class="ml-2 form-radio-label">Female</label>
+                             </div>
+                             <div class="flex items-center">
+                                 <input type="radio" id="gender_other" name="gender" value="Other" required>
+                                 <label for="gender_other" class="ml-2 form-radio-label">Other</label>
+                             </div>
+                             <div class="flex items-center">
+                                 <input type="radio" id="gender_prefer_not_to_say" name="gender" value="Prefer not to say" required>
+                                 <label for="gender_prefer_not_to_say" class="ml-2 form-radio-label">Prefer not to say</label>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
 
+                <!-- Skills Section -->
                 <div class="space-y-8">
                     <div>
                         <label for="role" class="block text-sm font-medium form-label">What is your primary role/skillset? <span class="text-red-400">*</span></label>
@@ -225,13 +244,14 @@
                         </select>
                         <div id="other-role-input-container" class="mt-3 hidden">
                             <label for="other_role_text" class="block text-sm font-medium form-label">Please specify your role:</label>
-                            <input type="text" id="other_role_text" name="other_role" class="mt-1 block w-full form-input shadow-sm p-3" placeholder="e.g., Cybersecurity Analyst, Product Designer, etc.">
+                            <input type="text" id="other_role_text" name="other_role" class="mt-1 block w-full form-input shadow-sm p-3" placeholder="e.g., Cybersecurity Analyst">
                         </div>
                     </div>
-
+                    
+                    <!-- RESPONSIVE CHANGE: Skill grids now use more robust column classes for different screen sizes -->
                     <div>
                         <label class="block text-sm font-medium form-label">Which programming languages/technologies are you most proficient in? <span class="text-red-400">*</span></label>
-                        <div class="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                        <div class="mt-2 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                             <div class="flex items-center"><input type="checkbox" name="languages" value="Python"><label class="ml-2 form-checkbox-label">Python</label></div>
                             <div class="flex items-center"><input type="checkbox" name="languages" value="Java"><label class="ml-2 form-checkbox-label">Java</label></div>
                             <div class="flex items-center"><input type="checkbox" name="languages" value="JavaScript"><label class="ml-2 form-checkbox-label">JavaScript</label></div>
@@ -243,33 +263,33 @@
                             <div class="flex items-center"><input type="checkbox" name="languages" value="MongoDB"><label class="ml-2 form-checkbox-label">MongoDB</label></div>
                             <div class="flex items-center"><input type="checkbox" name="languages" value="None of the above"><label class="ml-2 form-checkbox-label">None of the above</label></div>
                         </div>
-                        <input type="text" name="other_language" placeholder="Other languages..." class="mt-3 block w-full sm:w-1/2 form-input shadow-sm p-2">
+                        <input type="text" name="other_language" placeholder="Other languages..." class="mt-3 block w-full sm:w-1/2 form-input shadow-sm p-2 text-sm">
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium form-label">Describe your hardware experience (e.g., microcontrollers, PCB design, sensors). <span class="text-red-400">*</span></label>
-                        <div class="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                        <label class="block text-sm font-medium form-label">Describe your hardware experience. <span class="text-red-400">*</span></label>
+                        <div class="mt-2 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                             <div class="flex items-center"><input type="checkbox" name="hardware_skills" value="Arduino"><label class="ml-2 form-checkbox-label">Arduino</label></div>
                             <div class="flex items-center"><input type="checkbox" name="hardware_skills" value="Raspberry Pi"><label class="ml-2 form-checkbox-label">Raspberry Pi</label></div>
                             <div class="flex items-center"><input type="checkbox" name="hardware_skills" value="ESP32/ESP8266"><label class="ml-2 form-checkbox-label">ESP32/ESP8266</label></div>
-                            <div class="flex items-center"><input type="checkbox" name="hardware_skills" value="PCB Design (KiCad/Eagle)"><label class="ml-2 form-checkbox-label">PCB Design (KiCad/Eagle)</label></div>
+                            <div class="flex items-center"><input type="checkbox" name="hardware_skills" value="PCB Design (KiCad/Eagle)"><label class="ml-2 form-checkbox-label">PCB Design</label></div>
                             <div class="flex items-center"><input type="checkbox" name="hardware_skills" value="Sensor Integration"><label class="ml-2 form-checkbox-label">Sensor Integration</label></div>
                             <div class="flex items-center"><input type="checkbox" name="hardware_skills" value="Soldering"><label class="ml-2 form-checkbox-label">Soldering</label></div>
                             <div class="flex items-center"><input type="checkbox" name="hardware_skills" value="IoT"><label class="ml-2 form-checkbox-label">IoT</label></div>
                             <div class="flex items-center"><input type="checkbox" name="hardware_skills" value="None of the above"><label class="ml-2 form-checkbox-label">None of the above</label></div>
                         </div>
-                        <input type="text" name="other_hardware" placeholder="Other hardware skills..." class="mt-3 block w-full sm:w-1/2 form-input shadow-sm p-2">
+                        <input type="text" name="other_hardware" placeholder="Other hardware skills..." class="mt-3 block w-full sm:w-1/2 form-input shadow-sm p-2 text-sm">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium form-label">Familiarity with cloud platforms and DevOps tools? <span class="text-red-400">*</span></label>
-                        <div class="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                        <div class="mt-2 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                             <div class="flex items-center"><input type="checkbox" name="devops_skills" value="AWS"><label class="ml-2 form-checkbox-label">AWS</label></div>
-                            <div class="flex items-center"><input type="checkbox" name="devops_skills" value="Google Cloud (GCP)"><label class="ml-2 form-checkbox-label">Google Cloud (GCP)</label></div>
+                            <div class="flex items-center"><input type="checkbox" name="devops_skills" value="Google Cloud (GCP)"><label class="ml-2 form-checkbox-label">GCP</label></div>
                             <div class="flex items-center"><input type="checkbox" name="devops_skills" value="Azure"><label class="ml-2 form-checkbox-label">Azure</label></div>
                             <div class="flex items-center"><input type="checkbox" name="devops_skills" value="Docker"><label class="ml-2 form-checkbox-label">Docker</label></div>
                             <div class="flex items-center"><input type="checkbox" name="devops_skills" value="Kubernetes"><label class="ml-2 form-checkbox-label">Kubernetes</label></div>
-                            <div class="flex items-center"><input type="checkbox" name="devops_skills" value="Git/GitHub Actions"><label class="ml-2 form-checkbox-label">Git/GitHub Actions</label></div>
+                            <div class="flex items-center"><input type="checkbox" name="devops_skills" value="Git/GitHub Actions"><label class="ml-2 form-checkbox-label">Git/Actions</label></div>
                             <div class="flex items-center"><input type="checkbox" name="devops_skills" value="CI/CD"><label class="ml-2 form-checkbox-label">CI/CD</label></div>
                             <div class="flex items-center"><input type="checkbox" name="devops_skills" value="None of the above"><label class="ml-2 form-checkbox-label">None of the above</label></div>
                         </div>
@@ -277,20 +297,23 @@
 
                     <div>
                         <label class="block text-sm font-medium form-label">Familiarity with creative and presentation tools? <span class="text-red-400">*</span></label>
-                        <div class="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                            <div class="flex items-center"><input type="checkbox" name="creative_skills" value="Canva"><label class="ml-2 form-checkbox-label">Canva</label></div>
-                            <div class="flex items-center"><input type="checkbox" name="creative_skills" value="Adobe Photoshop/Illustrator"><label class="ml-2 form-checkbox-label">Adobe Photoshop/Illustrator</label></div>
-                            <div class="flex items-center"><input type="checkbox" name="creative_skills" value="Figma/Sketch"><label class="ml-2 form-checkbox-label">Figma/Sketch</label></div>
-                            <div class="flex items-center"><input type="checkbox" name="creative_skills" value="PowerPoint/Google Slides"><label class="ml-2 form-checkbox-label">PowerPoint/Google Slides</label></div>
-                            <div class="flex items-center"><input type="checkbox" name="creative_skills" value="Video Editing (e.g., DaVinci Resolve)"><label class="ml-2 form-checkbox-label">Video Editing (e.g., DaVinci Resolve)</label></div>
-                            <div class="flex items-center"><input type="checkbox" name="creative_skills" value="None of the above"><label class="ml-2 form-checkbox-label">None of the above</label></div>
+                        <div class="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                             <div class="flex items-center"><input type="checkbox" name="creative_skills" value="Canva"><label class="ml-2 form-checkbox-label">Canva</label></div>
+                             <div class="flex items-center"><input type="checkbox" name="creative_skills" value="Adobe Photoshop/Illustrator"><label class="ml-2 form-checkbox-label">Adobe Suite</label></div>
+                             <div class="flex items-center"><input type="checkbox" name="creative_skills" value="Figma/Sketch"><label class="ml-2 form-checkbox-label">Figma/Sketch</label></div>
+                             <div class="flex items-center"><input type="checkbox" name="creative_skills" value="PowerPoint/Google Slides"><label class="ml-2 form-checkbox-label">Slides</label></div>
+                             <div class="flex items-center"><input type="checkbox" name="creative_skills" value="Video Editing (e.g., DaVinci Resolve)"><label class="ml-2 form-checkbox-label">Video Editing</label></div>
+                             <div class="flex items-center"><input type="checkbox" name="creative_skills" value="None of the above"><label class="ml-2 form-checkbox-label">None of the above</label></div>
                         </div>
                     </div>
-
+                </div>
+                
+                <!-- Ratings Section -->
+                <div class="space-y-8">
                     <div>
                         <label class="block text-sm font-medium form-label mb-2">On a scale of 1-10, how experienced are you in hackathons? <span class="text-red-400">*</span></label>
                         <input type="hidden" id="hackathon_experience" name="hackathon_experience" value="1">
-                        <div id="hackathon-buttons" class="grid grid-cols-5 md:grid-cols-10 gap-2">
+                        <div id="hackathon-buttons" class="grid grid-cols-5 sm:grid-cols-10 gap-2">
                             <button type="button" data-value="1" class="rating-button p-2 rounded-full selected">1</button>
                             <button type="button" data-value="2" class="rating-button p-2 rounded-full">2</button>
                             <button type="button" data-value="3" class="rating-button p-2 rounded-full">3</button>
@@ -307,7 +330,7 @@
                     <div>
                         <label class="block text-sm font-medium form-label mb-2">How would you rate your problem-solving skills? <span class="text-red-400">*</span></label>
                         <input type="hidden" id="problem_solving" name="problem_solving" value="1">
-                        <div id="problem-solving-buttons" class="grid grid-cols-5 md:grid-cols-10 gap-2">
+                        <div id="problem-solving-buttons" class="grid grid-cols-5 sm:grid-cols-10 gap-2">
                             <button type="button" data-value="1" class="rating-button p-2 rounded-full selected">1</button>
                             <button type="button" data-value="2" class="rating-button p-2 rounded-full">2</button>
                             <button type="button" data-value="3" class="rating-button p-2 rounded-full">3</button>
@@ -322,6 +345,7 @@
                     </div>
                 </div>
 
+                <!-- Text Area Section -->
                 <div class="space-y-6">
                     <div>
                         <label for="ideas" class="block text-sm font-medium form-label">Specific ideas or domains you are interested in for SIH? (e.g., AI, Healthcare, FinTech) <span class="text-red-400">*</span></label>
@@ -332,11 +356,11 @@
                         <textarea id="project_mgmt" name="project_mgmt" rows="4" required class="mt-1 block w-full form-textarea shadow-sm p-3"></textarea>
                     </div>
                     <div>
-                        <label for="contribution" class="block text-sm font-medium form-label">Describe a project where you made a significant contribution. What was your role and what challenges did you overcome? <span class="text-red-400">*</span></label>
+                        <label for="contribution" class="block text-sm font-medium form-label">Describe a project where you made a significant contribution. <span class="text-red-400">*</span></label>
                         <textarea id="contribution" name="contribution" rows="4" required class="mt-1 block w-full form-textarea shadow-sm p-3"></textarea>
                     </div>
-                    <div>
-                        <label for="troubleshooting" class="block text-sm font-medium form-label">Describe your experience with debugging and troubleshooting complex systems (both hardware and software). <span class="text-red-400">*</span></label>
+                     <div>
+                        <label for="troubleshooting" class="block text-sm font-medium form-label">Describe your experience with debugging and troubleshooting. <span class="text-red-400">*</span></label>
                         <textarea id="troubleshooting" name="troubleshooting" rows="4" required class="mt-1 block w-full form-textarea shadow-sm p-3"></textarea>
                     </div>
                     <div>
@@ -349,9 +373,10 @@
                     </div>
                 </div>
 
+                <!-- Commitment & Submission -->
                 <div class="flex items-start">
                     <div class="flex items-center h-5">
-                        <input id="commitment" name="commitment" type="checkbox" required class="focus:ring-blue-500 text-blue-600">
+                        <input id="commitment" name="commitment" type="checkbox" required>
                     </div>
                     <div class="ml-3 text-sm">
                         <label for="commitment" class="font-medium form-checkbox-label">I understand the SIH hackathon is an intense event and confirm my full commitment to the team for its entire duration. <span class="text-red-400">*</span></label>
@@ -359,7 +384,8 @@
                 </div>
 
                 <div class="text-center pt-4">
-                    <button type="submit" id="submit-button" class="inline-flex justify-center py-3 px-12 border border-transparent shadow-sm text-lg font-medium rounded-full btn-submit focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white">
+                     <!-- RESPONSIVE CHANGE: Button padding is now smaller on mobile -->
+                    <button type="submit" id="submit-button" class="inline-flex justify-center py-3 px-8 sm:px-12 border border-transparent shadow-sm text-base sm:text-lg font-medium rounded-full btn-submit focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white">
                         Submit Proposal
                     </button>
                     <p id="loader" class="text-gray-400 mt-4 hidden">Submitting your application...</p>
@@ -367,30 +393,31 @@
             </form>
         </div>
     </div>
-<!-- Fancy Glassy Modal -->
-<div id="response-modal" class="fixed inset-0 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-  <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 max-w-sm w-full text-center border border-white/20">
-    <div id="modal-icon" class="mx-auto mb-4 w-16 h-16 flex items-center justify-center rounded-full bg-green-500/30 text-green-400 text-3xl">
-      <!-- Icon (✅ or ❌) will be inserted here by JS -->
+    
+    <!-- Fancy Glassy Modal (already responsive) -->
+    <div id="response-modal" class="fixed inset-0 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 max-w-sm w-full text-center border border-white/20">
+            <div id="modal-icon" class="mx-auto mb-4 w-16 h-16 flex items-center justify-center rounded-full bg-green-500/30 text-green-400 text-3xl">
+                <!-- Icon (✅ or ❌) will be inserted here by JS -->
+            </div>
+            <h2 id="modal-title" class="text-xl font-semibold text-white mb-2"></h2>
+            <p id="modal-message" class="text-gray-200">
+                <!-- Message will be inserted here by JS -->
+            </p>
+            <button id="modal-close-btn" class="mt-6 px-5 py-2 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur-md border border-white/30 transition">
+                Close
+            </button>
+        </div>
     </div>
-    <h2 id="modal-title" class="text-xl font-semibold text-white mb-2"></h2>
-    <p id="modal-message" class="text-gray-200">
-      <!-- Message will be inserted here by JS -->
-    </p>
-    <button id="modal-close-btn" 
-      class="mt-6 px-5 py-2 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur-md border border-white/30 transition">
-      Close
-    </button>
-  </div>
-</div>
 
 <script type="module">
     // --- Modular Firebase SDK Imports ---
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-    import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
-    import { getAuth, onAuthStateChanged, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    import { getAuth, onAuthStateChanged, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
     // --- User's Firebase Configuration ---
+    // IMPORTANT: It's recommended to use environment variables for keys in a real project.
     const firebaseConfig = {
         apiKey: "AIzaSyB4eoofAdY4DrW-VKvfGJl5aNv2hoCTn4c",
         authDomain: "iist-fd6e8.firebaseapp.com",
@@ -403,18 +430,18 @@
     };
     
     // --- Environment Variables ---
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-sih-app';
 
     // --- Initialize Firebase ---
     let db, auth;
     try {
         const app = initializeApp(firebaseConfig);
-        db = getDatabase(app); // Changed to Realtime Database
+        db = getDatabase(app); 
         auth = getAuth(app);
         console.log("Firebase initialized successfully with Realtime Database.");
     } catch (e) {
         console.error("Error initializing Firebase:", e);
-        document.body.innerHTML = '<div style="color: red; text-align: center; padding: 50px;">Could not connect to the database. Please try again later.</div>';
+        document.body.innerHTML = '<div style="color: red; text-align: center; padding: 50px;">Could not connect to the database. Please check your Firebase configuration and try again later.</div>';
     }
 
     // --- Authentication ---
@@ -425,7 +452,7 @@
                     await signInAnonymously(auth);
                     console.log("Signed in anonymously.");
                 } catch (error) {
-                    console.error("Authentication failed:", error);
+                    console.error("Anonymous authentication failed:", error);
                 }
             } else {
                 console.log("User is already signed in:", user.uid);
@@ -433,7 +460,7 @@
         });
     }
     
-    // --- Run JS after DOM is loaded ---
+    // --- Wait for DOM to be loaded before running scripts ---
     document.addEventListener("DOMContentLoaded", () => {
         // --- DOM Elements ---
         const form = document.getElementById('sih-form');
@@ -445,7 +472,7 @@
         const modalIcon = document.getElementById('modal-icon');
         const modalCloseBtn = document.getElementById('modal-close-btn');
 
-        // --- Countdown Timer (no changes) ---
+        // --- Countdown Timer ---
         const countDownDate = new Date("Sep 5, 2025 23:59:59").getTime();
         const timerInterval = setInterval(function() {
             const now = new Date().getTime();
@@ -454,15 +481,20 @@
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
             if (document.getElementById("days")) {
                 document.getElementById("days").innerText = days.toString().padStart(2, '0');
                 document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
                 document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
                 document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
             }
+            
             if (distance < 0) {
                 clearInterval(timerInterval);
-                document.getElementById("countdown-timer-container").innerHTML = `<div class="text-2xl font-bold text-red-400 py-8">SUBMISSION DEADLINE HAS PASSED</div>`;
+                const timerContainer = document.getElementById("countdown-timer-container");
+                if (timerContainer) {
+                    timerContainer.innerHTML = `<div class="text-xl font-bold text-red-400 py-4 sm:py-8">SUBMISSION DEADLINE HAS PASSED</div>`;
+                }
                 if (submitButton) {
                     submitButton.disabled = true;
                     submitButton.innerText = "Submissions Closed";
@@ -471,11 +503,11 @@
             }
         }, 1000);
 
-        // --- Modal & Form Helpers (no changes) ---
+        // --- Modal & Form Helpers ---
         function showModal(type, title, message) {
             if (!modal || !modalTitle || !modalMessage || !modalIcon) return;
             modalTitle.textContent = title;
-            modalMessage.innerHTML = message;
+            modalMessage.innerHTML = message; 
             if (type === 'success') {
                 modalIcon.innerHTML = `✅`;
                 modalIcon.className = 'mx-auto mb-4 w-16 h-16 flex items-center justify-center rounded-full bg-green-500/30 text-green-400 text-3xl';
@@ -485,13 +517,16 @@
             }
             modal.classList.remove('hidden');
         }
+        
         if (modalCloseBtn) {
             modalCloseBtn.addEventListener('click', () => modal.classList.add('hidden'));
         }
+        
         function setupExclusiveCheckbox(groupName) {
             const checkboxes = document.querySelectorAll(`input[name="${groupName}"]`);
             const noneCheckbox = document.querySelector(`input[name="${groupName}"][value="None of the above"]`);
             if (!noneCheckbox) return;
+            
             checkboxes.forEach(cb => {
                 cb.addEventListener('change', (e) => {
                     if (e.target === noneCheckbox && e.target.checked) {
@@ -502,6 +537,7 @@
                 });
             });
         }
+        
         setupExclusiveCheckbox('languages');
         setupExclusiveCheckbox('hardware_skills');
         setupExclusiveCheckbox('devops_skills');
@@ -511,12 +547,13 @@
         if (form) {
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
+                
                 if (form.querySelectorAll('input[name="languages"]:checked').length === 0) {
                     showModal('error', 'Validation Error', 'Please select at least one programming language or "None of the above".');
                     return;
                 }
                 if (!auth || !auth.currentUser) {
-                    showModal('error', 'Not Authenticated', 'Please wait for authentication and try again.');
+                    showModal('error', 'Not Authenticated', 'Please wait for authentication to complete and try again.');
                     return;
                 }
 
@@ -526,6 +563,8 @@
 
                 const formData = new FormData(form);
                 const data = Object.fromEntries(formData.entries());
+                
+                // Consolidate checkbox data
                 data.languages = formData.getAll('languages');
                 data.hardware_skills = formData.getAll('hardware_skills');
                 data.devops_skills = formData.getAll('devops_skills');
@@ -538,14 +577,14 @@
                 data.submittedAt = new Date().toISOString();
 
                 try {
-                    // --- CHANGED to Realtime Database ---
                     const dbRef = ref(db, `artifacts/${appId}/public/data/sih_2025_applicants`);
                     const newApplicantRef = push(dbRef);
                     await set(newApplicantRef, data);
                     
-                    showModal('success', 'Submitted successfully!', 'If selected, you will be contacted soon before <span class="font-semibold text-green-300">6th September</span>. 🎉');
+                    showModal('success', 'Submitted successfully!', 'If selected, you will be contacted before <span class="font-semibold text-green-300">6th September</span>. 🎉');
                     form.reset();
-                    // Resetting UI elements after submission
+                    
+                    // Reset UI elements after submission
                     document.getElementById('hackathon_experience').value = '1';
                     document.querySelectorAll('#hackathon-buttons button').forEach(b => b.classList.remove('selected'));
                     document.querySelector('#hackathon-buttons button[data-value="1"]').classList.add('selected');
@@ -553,11 +592,12 @@
                     document.querySelectorAll('#problem-solving-buttons button').forEach(b => b.classList.remove('selected'));
                     document.querySelector('#problem-solving-buttons button[data-value="1"]').classList.add('selected');
                     document.getElementById('other-role-input-container').classList.add('hidden');
+
                 } catch (error) {
                     console.error("Error writing to Realtime Database: ", error);
                     let userMessage = 'There was an error submitting your application. Please try again.';
                     if (error.message && error.message.includes('PERMISSION_DENIED')) {
-                         userMessage = 'Submission failed due to a database permission issue. The database administrator needs to update the security rules to allow submissions.';
+                        userMessage = 'Submission failed due to a database permission issue. Please check the security rules for your Realtime Database.';
                     }
                     showModal('error', 'Submission Failed', userMessage);
                 } finally {
@@ -568,11 +608,12 @@
             });
         }
 
-        // --- UI Controls (no changes) ---
+        // --- UI Controls ---
         function setupRatingButtons(containerId, inputId) {
             const container = document.getElementById(containerId);
             const hiddenInput = document.getElementById(inputId);
             if (!container || !hiddenInput) return;
+            
             container.addEventListener('click', (e) => {
                 if (e.target.tagName === 'BUTTON' && e.target.dataset.value) {
                     const value = e.target.dataset.value;
@@ -582,11 +623,14 @@
                 }
             });
         }
+        
         setupRatingButtons("hackathon-buttons", "hackathon_experience");
         setupRatingButtons("problem-solving-buttons", "problem_solving");
+        
         const roleSelect = document.getElementById("role");
         const otherRoleContainer = document.getElementById("other-role-input-container");
         const otherRoleInput = document.getElementById("other_role_text");
+        
         if (roleSelect && otherRoleContainer && otherRoleInput) {
             roleSelect.addEventListener("change", function () {
                 if (this.value === "Other") {
