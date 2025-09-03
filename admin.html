@@ -105,9 +105,9 @@
 
 <script type="module">
     // --- Modular Firebase SDK Imports ---
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-    import { getDatabase, ref, onValue, update, remove } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
-    import { getAuth, onAuthStateChanged, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    import { getAuth, onAuthStateChanged, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
     // --- User's Firebase Configuration ---
     const firebaseConfig = {
@@ -121,8 +121,11 @@
         measurementId: "G-GPFG8LWF2H"
     };
 
-    // --- Environment Variables ---
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+    // --- Environment Variables & Constants ---
+    // This logic now perfectly matches the index.html file.
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-sih-app';
+    // FIX: The `artifacts/` prefix was missing, causing the admin panel to look in the wrong place.
+    const basePath = `artifacts/${appId}/public/data/sih_2025_applicants`;
     
     // --- Initialize Firebase ---
     let db, auth;
@@ -144,9 +147,9 @@
                 listenForApplications();
             } else {
                  try {
-                    await signInAnonymously(auth);
+                     await signInAnonymously(auth);
                  } catch(error) {
-                    console.error("Anonymous sign-in failed:", error);
+                     console.error("Anonymous sign-in failed:", error);
                  }
             }
         });
@@ -176,7 +179,7 @@
     async function deleteApplicant() {
         if (!docIdToDelete) return;
         try {
-            const applicantRef = ref(db, `artifacts/${appId}/public/data/sih_2025_applicants/${docIdToDelete}`);
+            const applicantRef = ref(db, `${basePath}/${docIdToDelete}`);
             await remove(applicantRef);
             console.log(`Successfully deleted applicant ${docIdToDelete}`);
         } catch (error) {
@@ -196,7 +199,7 @@
 
     async function updateApplicantStatus(docId, newStatus) {
         try {
-            const applicantRef = ref(db, `artifacts/${appId}/public/data/sih_2025_applicants/${docId}`);
+            const applicantRef = ref(db, `${basePath}/${docId}`);
             await update(applicantRef, {
                 status: newStatus
             });
@@ -239,7 +242,7 @@
                 detailsHtml += `
                     <div>
                         <p class="text-sm font-medium question-title">${key}</p>
-                        <p class="text-base answer-text">${value}</p>
+                        <p class="text-base answer-text break-words">${value}</p>
                     </div>
                 `;
             }
@@ -279,7 +282,7 @@
     }
 
     function listenForApplications() {
-        const dbRef = ref(db, `artifacts/${appId}/public/data/sih_2025_applicants`);
+        const dbRef = ref(db, basePath);
         
         onValue(dbRef, (snapshot) => {
             loadingIndicator.classList.add('hidden');
